@@ -21,6 +21,7 @@ import { TrafficClass } from '../models/traffic-class';
 import { Upf } from '../models/upf';
 import { Slice } from '../models/slice';
 import { Device } from "../models/device";
+import { SimCard } from "../models/sim-card";
 
 @Injectable({
   providedIn: 'root',
@@ -418,6 +419,46 @@ export class Service extends BaseService {
                 })
                 DeviceDataObject.device = EnterpriseSiteDeviceArray;
                 return DeviceDataObject as Device
+            })
+        );
+    }
+
+    /**
+     * Path part for operation getDevice
+     */
+    static readonly GetSimCardPath = '/aether/v2.0.0/{target}/sim-card';
+
+    /**
+     * GET /device.
+     *
+     *
+     *
+     * This method provides access to only to the response body.
+     * To access the full response (for headers, for example), `getUpf$Response()` instead.
+     *
+     * This method doesn't expect any request body.
+     */
+    getSimCard(params: {
+
+        /**
+         * target (sim-card in onos-config)
+         */
+        target: any;
+    }): Observable<SimCard> {
+        return this.getEnterprise$Response(params).pipe(
+            map((r: StrictHttpResponse<Enterprise>) => {
+                let SimCardDataObject :SimCard = {'sim-card':[]};
+                let EnterpriseSiteSimCardArray = [];
+                r.body.enterprise.forEach(enterprise => {
+                    enterprise.site.forEach(site=>{
+                        site['sim-card'].forEach(simCard=> {
+                            simCard['site-id'] = site['site-id'];
+                            simCard['enterprise-id'] = enterprise['enterprise-id']})
+                        EnterpriseSiteSimCardArray = [...EnterpriseSiteSimCardArray,...site['sim-card']];
+                    })
+                })
+                SimCardDataObject['sim-card'] = EnterpriseSiteSimCardArray;
+                return SimCardDataObject as SimCard
             })
         );
     }

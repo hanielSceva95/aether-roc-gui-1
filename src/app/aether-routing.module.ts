@@ -73,6 +73,13 @@ const aetherRoutes: Routes = [
             ),
     },
     {
+        path: 'simcard',
+        loadChildren: () =>
+            import('./aether-sim-card/aether-sim-card.module').then(
+                (m) => m.AetherSimCardModule
+            ),
+    },
+    {
         path: 'upf',
         loadChildren: () =>
             import('./aether-upf/aether-upf.module').then(

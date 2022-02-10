@@ -1,0 +1,75 @@
+<!--
+~ SPDX-FileCopyrightText: 2021-present Open Networking Foundation <info@opennetworking.org>
+~
+~ SPDX-License-Identifier: Apache-2.0
+-->
+<form [formGroup]="simCardForm" (ngSubmit)="onSubmit()">
+    <mat-card>
+        <mat-card-header>
+            <mat-card-title
+                >User Plane Function ID:
+                {{ this.simCardForm.get("sim-id").value }}</mat-card-title
+            >
+        </mat-card-header>
+        <mat-card-content>
+            <div class="row" *ngIf="isNew">
+                <mat-form-field class="half-width field-margin">
+                    <input
+                        matInput
+                        formControlName="id"
+                        placeholder="Please specify an ID"
+                        id="inputID"
+                    />
+                    <mat-hint>ID</mat-hint>
+                </mat-form-field>
+            </div>
+            <div class="row" id="displayNameRow">
+                <mat-form-field class="field-margin half-width">
+                    <input
+                        matInput
+                        formControlName="display-name"
+                        id="inputDisplayName"
+                    />
+                    <mat-hint>Display Name</mat-hint>
+                </mat-form-field>
+            </div>
+            <div class="row" id="descriptionRow">
+                <mat-form-field class="field-margin half-width">
+                    <textarea
+                        matInput
+                        formControlName="description"
+                        id="inputDescription"
+                    ></textarea>
+                    <mat-hint>Description</mat-hint>
+                </mat-form-field>
+            </div>
+            <div class="row" id="imsiRow">
+                <mat-form-field class="field-margin half-width">
+                    <input matInput formControlName="imsi" id="inputimsi" />
+                    <mat-hint>IMSI</mat-hint>
+                </mat-form-field>
+            </div>
+            <div class="row" id="iccidRow">
+                <mat-form-field class="field-margin half-width">
+                    <input matInput formControlName="iccid" id="inputiccid" />
+                    <mat-hint>ICCID</mat-hint>
+                </mat-form-field>
+            </div>
+            <button
+                mat-raised-button
+                color="accent"
+                type="submit"
+                [disabled]="
+                    !(
+                        simCardForm.valid &&
+                        simCardForm.touched &&
+                        opaService.canWrite('/sim-card/sim-card')
+                    )
+                "
+                id="submitButton"
+            >
+                Update
+            </button>
+        </mat-card-content>
+    </mat-card>
+</form>

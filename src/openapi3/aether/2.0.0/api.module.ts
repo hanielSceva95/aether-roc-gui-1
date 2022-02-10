@@ -27,6 +27,7 @@ import {SliceSliceDeviceGroupService} from "./services/slice-slice-device-group.
 import {SliceSliceFilterService} from "./services/slice-slice-filter.service";
 import {SliceSliceSliceService} from "./services/slice-slice-slice.service";
 import { DeviceDeviceService } from "./services/device-device.service";
+import { SimCardSimCardService } from "./services/sim-card-sim-card.service";
 
 /**
  * Module that provides all services and configuration.
@@ -58,6 +59,7 @@ import { DeviceDeviceService } from "./services/device-device.service";
         SliceSliceFilterService,
         SliceSliceSliceService,
         DeviceDeviceService,
+        SimCardSimCardService,
         ApiConfiguration
     ],
 })
