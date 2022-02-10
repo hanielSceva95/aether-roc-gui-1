@@ -1,7 +1,7 @@
 /*
  * SPDX-FileCopyrightText: 2021-present Open Networking Foundation <info@opennetworking.org>
  *
- * SPDX-License-Identifier: LicenseRef-ONF-Member-1.0
+ * SPDX-License-Identifier: Apache-2.0
  */
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -120,8 +120,7 @@ export class DeviceEditComponent extends RocEditBase implements OnInit {
     private populateFormData(value: EnterpriseEnterpriseSiteDevice): void {
         if (value['device-id']) {
             this.deviceForm.get('device-id').setValue(value['device-id']);
-            this.deviceForm.get('device-id')[ORIGINAL] =
-                value['device-id'];
+            this.deviceForm.get('device-id')[ORIGINAL] = value['device-id'];
         }
         if (value['display-name']) {
             this.deviceForm.get('display-name').setValue(value['display-name']);
