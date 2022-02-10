@@ -22,7 +22,7 @@ export interface EnterpriseEnterpriseSiteDevice {
     /**
      * Id of small cell
      */
-    'dev-id': string;
+    'device-id': string;
 
     /**
      * description of this device

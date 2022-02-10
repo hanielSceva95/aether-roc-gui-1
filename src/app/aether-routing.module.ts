@@ -66,6 +66,13 @@ const aetherRoutes: Routes = [
             ),
     },
     {
+        path: 'device',
+        loadChildren: () =>
+            import('./aether-device/aether-device.module').then(
+                (m) => m.AetherDeviceModule
+            ),
+    },
+    {
         path: 'upf',
         loadChildren: () =>
             import('./aether-upf/aether-upf.module').then(

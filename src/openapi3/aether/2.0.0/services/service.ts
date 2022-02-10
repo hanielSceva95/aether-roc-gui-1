@@ -20,6 +20,7 @@ import { Template } from '../models/template';
 import { TrafficClass } from '../models/traffic-class';
 import { Upf } from '../models/upf';
 import { Slice } from '../models/slice';
+import { Device } from "../models/device";
 
 @Injectable({
   providedIn: 'root',
@@ -381,7 +382,48 @@ export class Service extends BaseService {
       );
   }
 
-  /**
+    /**
+     * Path part for operation getDevice
+     */
+    static readonly GetDevicePath = '/aether/v2.0.0/{target}/device';
+
+    /**
+     * GET /device.
+     *
+     *
+     *
+     * This method provides access to only to the response body.
+     * To access the full response (for headers, for example), `getUpf$Response()` instead.
+     *
+     * This method doesn't expect any request body.
+     */
+    getDevice(params: {
+
+        /**
+         * target (device in onos-config)
+         */
+        target: any;
+    }): Observable<Device> {
+        return this.getEnterprise$Response(params).pipe(
+            map((r: StrictHttpResponse<Enterprise>) => {
+                let DeviceDataObject :Device = {device:[]};
+                let EnterpriseSiteDeviceArray = [];
+                r.body.enterprise.forEach(enterprise => {
+                    enterprise.site.forEach(site=>{
+                        site.device.forEach(Device=> {
+                            Device['site-id'] = site['site-id'];
+                            Device['enterprise-id'] = enterprise['enterprise-id']})
+                        EnterpriseSiteDeviceArray = [...EnterpriseSiteDeviceArray,...site.device];
+                    })
+                })
+                DeviceDataObject.device = EnterpriseSiteDeviceArray;
+                return DeviceDataObject as Device
+            })
+        );
+    }
+
+
+    /**
    * Path part for operation getSite
    */
   static readonly GetSitePath = '/aether/v2.0.0/{target}/site';
